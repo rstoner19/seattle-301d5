@@ -21,9 +21,6 @@ Article.prototype.toHtml = function() {
   $newArticle.find('time').text(this.publishedOn);
   $newArticle.append(this.body);
 
-  // $('main').append('.template')
-  //
-  // $('.template').find('h1').text(this.title);
   // console.log(this.title);
 
   // TODO: Use jQuery to fill in the template with properties
