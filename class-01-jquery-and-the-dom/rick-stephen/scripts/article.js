@@ -3,18 +3,31 @@ var articles = [];
 function Article (opts) {
   // TODO: Use the js object passed in to complete this contructor function:
   // Save ALL the properties of `opts` into `this`.
+  this.title = opts.title;
+  this.category = opts.category;
   this.author = opts.author;
+  this.authorUrl = opts.authorUrl;
+  this.publishedOn = opts.publishedOn;
+  this.body = opts.body;
 }
 
 Article.prototype.toHtml = function() {
-  var $newArticle = $('article.template').clone();
-
+  var $newArticle = $('article.template').clone()
+  $newArticle.attr('data-title', this.title);
   $newArticle.attr('data-category', this.category);
+  $newArticle.attr('data-author', this.author);
+  $newArticle.attr('data-authorUrl', this.authorUrl);
+
+
+  // $('main').append('.template')
+  //
+  // $('.template').find('h1').text(this.title);
+  // console.log(this.title);
 
   // TODO: Use jQuery to fill in the template with properties
   // from this particular Article instance. We need to fill in:
   // the author name and url, the article title and body, and the
-  // publication date.
+  // publication date. Will need to use find(), .text(), and .html()
 
   // Include the publication date as a 'title' attribute to show on hover:
   $newArticle.find('time[pubdate]').attr('title', this.publishedOn)
@@ -24,7 +37,7 @@ Article.prototype.toHtml = function() {
 
   $newArticle.append('<hr>');
 
-  // TODO: This cloned article is no longer a template, so we should remove that class...
+  // TODO: This cloned article is no longer a template, so we should remove that class... .clone()
 
   return $newArticle;
 }
