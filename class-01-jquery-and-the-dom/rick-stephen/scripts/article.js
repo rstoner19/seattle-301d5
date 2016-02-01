@@ -13,11 +13,13 @@ function Article (opts) {
 
 Article.prototype.toHtml = function() {
   var $newArticle = $('article.template').clone()
-  $newArticle.attr('data-title', this.title);
+  // $newArticle.attr('data-title', this.title);
   $newArticle.attr('data-category', this.category);
-  $newArticle.attr('data-author', this.author);
-  $newArticle.attr('data-authorUrl', this.authorUrl);
-
+  $newArticle.find('h1').text(this.title);
+  $newArticle.find('address').text(this.author);
+  $newArticle.find('address').html('<a href="' + this.authorUrl + '">' + this.author + '</a>');
+  $newArticle.find('time').text(this.publishedOn);
+  $newArticle.append(this.body);
 
   // $('main').append('.template')
   //
@@ -38,6 +40,7 @@ Article.prototype.toHtml = function() {
   $newArticle.append('<hr>');
 
   // TODO: This cloned article is no longer a template, so we should remove that class... .clone()
+  $newArticle.removeClass('template');
 
   return $newArticle;
 }
