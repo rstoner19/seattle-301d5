@@ -1,7 +1,9 @@
-/* TODO: Give the site header a nice background color, from your selected color scheme. */
+/* Done: Give the site header a nice background color, from your selected color scheme. */
 
 .site-header {
-  padding: .1em;
+  padding: .1em 5em;
+  background-color: #004c80;
+  color: #fff;
 }
 
 .main-nav {
@@ -15,17 +17,24 @@
   font-size: 1.5em;
   padding: .5em .2em;
   border-bottom: 1px solid #ccc;
+  list-style-type: none;
 }
 
-/* TODO: Style the filters so they look good on small screens:
+/* Done: Style the filters so they look good on small screens:
     Use the full width, and remove the list bullet. */
 
 #filters {
   padding: 0;
 }
 
-#filters select {
+#filters li {
+  list-style-type: none;
+}
 
+#filters select {
+  padding: 0.3em;
+  margin: .2em;
+  width: 100%;
 }
 
 .template {
