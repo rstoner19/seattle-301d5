@@ -15,14 +15,6 @@ articles.forEach(function(a){
 articleView.populateFilters = function() {
   $('article').each(function() {
     if (!$(this).hasClass('template')) {
-      // var val = $(this).find('address a').text();
-      // var optionTag2 = Handlebars.compile($('author-template').text());
-      // var optionTag = '<option value="' + val + '">' + val + '</option>';
-      // console.log("optionTag is " + optionTag);
-      // console.log($(this).createAuthorOption());
-      // console.log("optionTag2(this) is " + optionTag2(this))
-      // $('#author-filter').append($(this).createAuthorOption());
-
       val = $(this).attr('data-category');
       optionTag = '<option value="' + val + '">' + val + '</option>';
       if ($('#category-filter option[value="' + val + '"]').length === 0) {
