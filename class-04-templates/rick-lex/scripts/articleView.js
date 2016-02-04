@@ -1,12 +1,27 @@
 // Configure a view object, to hold all our functions for dynamic updates and article-related event handlers.
 var articleView = {};
 
+
+
+Article.prototype.createAuthorOption = function() {
+  var template = Handlebars.compile($('#author-template').text());
+  return template(this);
+}
+
+articles.forEach(function(a){
+  $('#author-filter').append(a.createAuthorOption());
+});
+
 articleView.populateFilters = function() {
   $('article').each(function() {
     if (!$(this).hasClass('template')) {
-      var val = $(this).find('address a').text();
-      var optionTag = '<option value="' + val + '">' + val + '</option>';
-      $('#author-filter').append(optionTag);
+      // var val = $(this).find('address a').text();
+      // var optionTag2 = Handlebars.compile($('author-template').text());
+      // var optionTag = '<option value="' + val + '">' + val + '</option>';
+      // console.log("optionTag is " + optionTag);
+      // console.log($(this).createAuthorOption());
+      // console.log("optionTag2(this) is " + optionTag2(this))
+      // $('#author-filter').append($(this).createAuthorOption());
 
       val = $(this).attr('data-category');
       optionTag = '<option value="' + val + '">' + val + '</option>';
