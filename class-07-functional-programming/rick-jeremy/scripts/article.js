@@ -1,5 +1,9 @@
-// TODO: Wrap the entire contents of this file in an IIFE.
+// Done: Wrap the entire contents of this file in an IIFE.
 // Pass in to the IIFE a module, upon which objects can be attached for later access.
+(function(module) {
+
+
+
 function Article (opts) {
   this.author = opts.author;
   this.authorUrl = opts.authorUrl;
@@ -40,23 +44,34 @@ Article.loadAll = function(rawData) {
 // and process it, then hand off control to the View.
 // TODO: Refactor this function, so it accepts an argument of a callback function (likely a view function)
 // to execute once the loading of articles is done.
-Article.fetchAll = function() {
-  if (localStorage.rawData) {
-    Article.loadAll(JSON.parse(localStorage.rawData));
-    articleView.initIndexPage();
+Article.fetchAll = function(callback, callbackObj){
+  if (callbackObj) {
+    Article.loadAll(JSON.parse(callbackObj));
+    callback();
   } else {
     $.getJSON('/data/hackerIpsum.json', function(rawData) {
       Article.loadAll(rawData);
-      localStorage.rawData = JSON.stringify(rawData); // Cache the json, so we don't need to request it next time.
-      articleView.initIndexPage();
+      callbackObj = JSON.stringify(rawData); // Cache the json, so we don't need to request it next time.
+      callback();
     });
   }
 };
+// Article.fetchAll = function() {
+//   if (localStorage.rawData) {
+//     Article.loadAll(JSON.parse(localStorage.rawData));
+//     articleView.initIndexPage();
+//   } else {
+//     $.getJSON('/data/hackerIpsum.json', function(rawData) {
+//       Article.loadAll(rawData);
+//       localStorage.rawData = JSON.stringify(rawData); // Cache the json, so we don't need to request it next time.
+//       articleView.initIndexPage();
+//     });
+//   }
+// };
 
-// TODO: Chain together a `map` and a `reduce` call to get a rough count of all words in all articles.
+// DONE: Chain together a `map` and a `reduce` call to get a rough count of all words in all articles.
 Article.numWordsAll = function() {
   return Article.all.map(function(article) {
-    console.log(article.body.match(/\b\w+/g).length);
     return article.body.match(/\b\w+/g).length;
   })
   .reduce(function(a, b) {
@@ -64,9 +79,17 @@ Article.numWordsAll = function() {
   })
 };
 
-// TODO: Chain together a `map` and a `reduce` call to produce an array of unique author names.
+// DONE: Chain together a `map` and a `reduce` call to produce an array of unique author names.
 Article.allAuthors = function() {
-  return // Don't forget to read the docs on map and reduce!
+   return Article.all.map(function(article) {
+    //  console.log(article.author);
+	  return article.author;
+  })
+  .reduce(function(a,b){
+    console.log(a, b)
+    if (a.indexOf(b) < 0 ) a.push(b);
+    return a;
+  },[])
 };
 
 Article.numWordsByAuthor = function() {
@@ -78,3 +101,7 @@ Article.numWordsByAuthor = function() {
     }
   })
 };
+
+
+module.Article = Article;
+}(window));
