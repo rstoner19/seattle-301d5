@@ -9,13 +9,11 @@
     $about.show().siblings().hide();
   };
 
-  // TODO: How do you want to render a single repo as html? Return your filled in HTML template.
+  // done: How do you want to render a single repo as html? Return your filled in HTML template.
   var render = function(repo) {
     // return a list item that renders and single html
-    console.log('test');
-    $('<li>').html(this.name);
-
-
+    var template = Handlebars.compile($('#about-template').text());
+    return template(repo);
   };
 
   // DONE: If all the data is loaded, we can prep the UI and render the repos.
