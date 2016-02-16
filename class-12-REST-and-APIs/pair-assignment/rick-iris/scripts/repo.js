@@ -8,20 +8,16 @@
     // Need to make a call to the github repos, don't forget the callback .done()
     $.ajax({
       url: 'https://api.github.com/users/rstoner19/repos' +
-    			'?per_page=5&sort=updated',
+    			'?per_page=10&sort=updated',
       type: 'GET',
       headers: { 'Authorization': 'token ' + githubToken },
       success: function(data, message, xhr) {
-
+        repos.all = data.map(function(ele) {
+          return ele;
+        });
       }
     })
-  .done(function(data){
-    repos.all = data.map(function(ele) {
-      if (ele.owner.login === 'rstoner19'){
-        return ele;
-      }
-    });
-  });
+  .done(callback);
   };
 
 
