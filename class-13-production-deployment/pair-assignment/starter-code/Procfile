@@ -1,1 +1,1 @@
-web: npm i && node server.js
+web: npm i && node server.js && cd 301d5/seattle-301d5/class-13-production-deployment/pair-assignment/starter-code
