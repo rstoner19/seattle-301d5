@@ -13,6 +13,12 @@
   };
 
   // COMMENT: What does this method do?  What is it's execution path?
+  /*
+  populateFilters is a method on articleView object.  Two variables are then decalred, options and template.  Template uses Handlebars.js which will allow the data to be put into text and later displayed on the page.
+
+  options is an array that
+
+  */
   articleView.populateFilters = function() {
     var options,
       template = Handlebars.compile($('#option-template').text());
@@ -20,6 +26,7 @@
     // Example of using model method with FP, synchronous approach:
     // NB: This method is dependant on info being in the DOM. Only authors of shown articles are loaded.
     options = Article.allAuthors().map(function(author) { return template({val: author}); });
+    console.log(options);
     if ($('#author-filter option').length < 2) { // Prevent duplication
       $('#author-filter').append(options);
     };
