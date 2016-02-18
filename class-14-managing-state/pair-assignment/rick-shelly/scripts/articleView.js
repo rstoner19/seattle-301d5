@@ -14,9 +14,11 @@
 
   // COMMENT: What does this method do?  What is it's execution path?
   /*
-  populateFilters is a method on articleView object.  Two variables are then decalred, options and template.  Template uses Handlebars.js which will allow the data to be put into text and later displayed on the page.
+  populateFilters is a method on articleView object.  Two variables are then declared -- options and template.  Template uses the compile function from Handlebars.js to allow the data to be put into text and later displayed on the page.
 
-  options is an array that
+  options is an array of unique authors with the html tags.  This array is created by calling the allAuthors method on Article object, which returns an array of unique authors, using a .reduce method to ensure unique items.  This data is passed to options in a new array by the array method, .map(), which creates the array of newly filtered information.
+
+ It then goes through an if statement to prevent duplication in the DOM filters and then appends it to the window/dom.
 
   */
   articleView.populateFilters = function() {
@@ -45,6 +47,10 @@
   };
 
   // COMMENT: What does this method do?  What is it's execution path?
+ //
+ //  handleFilters is a method on the articleView object.  It runs an event handler on the element that has the id "filters" and uses the .one(), which will run the event a maximum of one time per change event.  When the event is triggered resource is set to replace the string on the specific id that has '-filter' with a blank space and replaces it with a value replaces the white space with a + sign in the page() function from page.js that creates and defines a route-mapping path.
+ //
+ // Ultimately updating the current page to what the filter is.
   articleView.handleFilters = function() {
     $('#filters').one('change', 'select', function() {
       resource = this.id.replace('-filter', '');
@@ -125,6 +131,13 @@
   };
 
   // COMMENT: What does this method do?  What is it's execution path?
+
+
+ //  index is a method on the articleView object (deja-vu?).  This accepts the parameter articles.  When this is called it shows the element which has the id  "articles", but hides the siblings.
+ //
+ // Next it removes any article under the articles id, then runs the forEach method (ensuring every item in the array has the same function performed on it) using the handlebar template to compile the object values into text, factors how many days ago the blog entry was created and returns all this using the render function.  It then appends this new information to the id articles.
+ //
+ // It then calls the articleView.populateFilters, which is described above.
   articleView.index = function(articles) {
     $('#articles').show().siblings().hide();
 
@@ -134,10 +147,12 @@
     });
 
     articleView.populateFilters();
-    // COMMENT: What does this method do?  What is it's execution path?
     articleView.handleFilters();
+    // COMMENT: What does this method do?  What is it's execution path?
 
-    // DONE: Replace setTeasers with just the truncation logic, if needed:
+    // On this if there is only one item in articles, it shows all the text in the body. If there's more than one item in articles, it truncates the body so less space is used and more blog teasers can be displayed.
+    //
+    // // DONE: Replace setTeasers with just the truncation logic, if needed:
     if ($('#articles article').length > 1) {
       $('.article-body *:nth-of-type(n+2)').hide();
     }
